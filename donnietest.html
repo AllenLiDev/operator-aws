@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "utf-8">
+	<title>Operator!</title>
+	<style>
+	body, html {
+		margin: 0;
+		overflow: hidden;
+	}
+	canvas {
+		background-color: #F68C02;
+	}
+	</style>
+</head>
+
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+	window.requestAnimFrame = (function() {
+	return  window.requestAnimationFrame       || 
+			window.webkitRequestAnimationFrame || 
+			window.mozRequestAnimationFrame    || 
+			window.oRequestAnimationFrame      || 
+			window.msRequestAnimationFrame     || 
+			function(/* function */ callback, /* DOMElement */ element){
+				window.setTimeout(callback, 1000 / 60);
+			};
+	})();
+
+	var gameArea = {
+		canvas : document.getElementById("canvas"),
+		ctx : canvas.getContext("2d"),
+		WIDTH : 960,
+		HEIGHT : 540,
+		ratioX : null,
+		ratioY : null,
+		entities : [],
+		lastTime : null,
+		gameTime : 0,
+		state : 0,
+		refTime : 0,
+		init : function() {
+			this.canvas.width = window.innerWidth;
+			this.canvas.height = window.innerHeight;
+			this.ratioX = this.canvas.width / gameArea.WIDTH;
+			this.ratioY = this.canvas.height / gameArea.HEIGHT;
+
+			window.addEventListener("resize", gameArea.resize);
+			gameArea.canvas.addEventListener("click", clickCollision);
+			//gameArea.canvas.addEventListener("mousedown", dragCollision);
+			//gameArea.canvas.addEventListener("mouseup", dropCollision);
+
+			gameArea.entities = load.menuScreen();
+
+			this.lastTime = Date.now();
+			main();
+		},
+		resize : function() {
+			this.canvas.width = window.innerWidth;
+			this.canvas.height = window.innerHeight;
+			gameArea.ratioX = this.canvas.width / gameArea.WIDTH;
+			gameArea.ratioY = this.canvas.height / gameArea.HEIGHT;
+		},
+		render : function() {
+			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+			if (this.entities.length > 0) {
+				for (var i = 0; i < this.entities.length; i++) {
+					var img = new Image();
+					img.src = this.entities[i].src;
+					img.width = this.entities[i].width;
+					img.height = this.entities[i].height;
+					img.xPos = this.entities[i].xPos;
+					img.yPos = this.entities[i].yPos;
+					img.index = this.entities[i].index;
+					this.ctx.drawImage(img, 0, img.index * img.height, img.width, img.height, img.xPos * this.ratioX, img.yPos * this.ratioY, img.width * this.ratioX, img.height * this.ratioY);
+				}
+			} else {
+				alert("Programmer error. Empty entities list.");
+			}
+		}
+	}
+
+	function main() {
+		var now = Date.now();
+		var dt = (now - gameArea.lastTime) / 1000.0;
+
+		update(dt);
+		gameArea.render();
+
+		gameArea.lastTime = now;
+		window.requestAnimFrame(main);
+	}
+
+	var step1 = false;
+	var step2 = false;
+	var step3 = false;
+	function easterEgg(button){
+		if (button == 4) {
+			step3 = false;
+			step2 = false;
+			step1 = true;
+		} else if (button == 3) {
+			if(step1 && !step2){
+				step2 = true;
+			}
+			else{
+				step1 = false;
+				step2 = false;
+				step3 = false;
+			}
+		} else if (button == 1) {
+			if(step1 && step2 && !step3){
+				step3 = true;
+			}
+			else{
+				step1 = false;
+				step2 = false;
+				step3 = false;
+			}
+		} else if (button == 2) {
+			if (step1 && step2 && step3) {
+				window.alert("Now you know BEDMAS!");
+			}
+			else{				
+				step1 = false;
+				step2 = false;
+				step3 = false;
+			}
+		}
+	}
+
+	var load = {
+		entities : [],
+		clickable : [],
+		draggable : [],
+		droppable : [],
+		menuScreen : function() {
+			load.entities = [];
+			load.clickable = [];
+
+			var background = new Image();
+			background = {
+				src : "./assets/menuAssets/background.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var staticImage = new Image();
+			staticImage = {
+				src : "./assets/menuAssets/staticBackground.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var timeAtkImage = new Image();
+			timeAtkImage = {
+				src : "./assets/menuAssets/timeAttackButton.png",
+				width : 480,
+				height : 130,
+				xPos : 0,
+				yPos : 270,
+				index: 0
+			}
+
+			var timeAtkBox = {
+				xMin : 20,
+				yMin : 270,
+				xMax : 475,
+				yMax : 390,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.gameScreen();
+				}
+			}
+			
+			var endlessImage = new Image();
+			endlessImage = {
+				src : "./assets/menuAssets/endlessButton.png",
+				width : 480,
+				height : 130,
+				xPos : 480,
+				yPos : 270,
+				index: 0
+			}
+
+			var endlessBox = {
+				xMin : 485,
+				yMin : 270,
+				xMax : 940,
+				yMax : 390,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.gameScreen();
+				}
+			}
+			
+			var audioImage = new Image();
+			audioImage = {
+				src : "./assets/menuAssets/audioButton.png",
+				width : 126,
+				height : 126,
+				xPos : 834,
+				yPos : 0,
+				index: 0,
+				frames: 2
+			}
+
+			var audioBox = {
+				xMin : 846,
+				yMin : 25,
+				xMax : 926,
+				yMax : 105,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+			var leaderImage = new Image();
+			leaderImage = {
+				src : "./assets/menuAssets/leaderButton.png",
+				width : 329,
+				height : 140,
+				xPos : 631,
+				yPos : 400,
+				index: 0
+			}
+
+			var leaderBox = {
+				xMin : 640,
+				yMin : 400,
+				xMax : 940,
+				yMax : 520,
+				clicked : function() {
+					load.leaderScreen();
+				}
+			}
+
+			var guideImage = new Image();
+			guideImage = {
+				src : "./assets/menuAssets/guideButton.png",
+				width : 300,
+				height : 140,
+				xPos : 331,
+				yPos : 400,
+				index: 0
+			}
+
+			var guideBox = {
+				xMin : 331,
+				yMin : 400,
+				xMax : 631,
+				yMax : 520,
+				clicked : function() {
+					load.guideScreen();
+				}
+			}
+
+			var settingImage = new Image();
+			settingImage = {
+				src : "./assets/menuAssets/settingButton.png",
+				width : 331,
+				height : 140,
+				xPos : 0,
+				yPos : 400,
+				index: 0
+			}
+
+			var settingBox = {
+				xMin : 20,
+				yMin : 400,
+				xMax : 320,
+				yMax : 520,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.settingScreen();
+				}
+			}
+
+			var symbolAdd = {
+				xMin : 348,
+				yMin : 174,
+				xMax : 413,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(1);
+				}
+			}
+
+			var symbolMinus = {
+				xMin : 414,
+				yMin : 174,
+				xMax : 479,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(2);
+				}
+			}
+
+			var symbolMulti = {
+				xMin : 480,
+				yMin : 174,
+				xMax : 545,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(3);
+				}
+			}
+
+			var symbolDivide = {
+				xMin : 546,
+				yMin : 174,
+				xMax : 611,
+				yMax : 243,
+				clicked : function(){
+					easterEgg(4);
+				}
+			}
+
+			load.entities.push(background, staticImage, timeAtkImage, endlessImage, audioImage, leaderImage, guideImage, settingImage);
+
+			load.clickable.push(timeAtkBox, endlessBox, audioBox, leaderBox, guideBox, settingBox, symbolAdd, symbolMinus, symbolMulti, symbolDivide);
+
+			return load.entities;
+		},
+		preGameScreen : function() {
+			load.entities = [];
+			load.clickable = [];
+
+			load.entities.push(oneImage, twoImage, threeImage, instructImage);
+
+			return load.entities;
+		},
+		gameScreen : function() {
+			load.entities = [];
+			load.clickable = [];
+			load.draggable = [];
+
+			var background = new Image();
+			background = {
+				src : "./assets/gameAssets/background.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var gameBorderImage = new Image();
+			gameBorderImage = {
+				src : "./assets/gameAssets/gameBorderImage.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var scoreImage = new Image();
+			scoreImage = {
+				src : "./assets/gameAssets/scoreImage.png",
+				width : 520,
+				height : 208,
+				xPos : 220,
+				yPos : 0,
+				index: 0
+			}
+
+			var cardsImage = new Image();
+			cardsImage = {
+				src : "./assets/gameAssets/cardsImage.png",
+				width : 960,
+				height : 220,
+				xPos : 0,
+				yPos : 208,
+				index: 0,
+				frames : 3
+			}
+
+			var quitImage = new Image();
+			quitImage = {
+				src : "./assets/gameAssets/quitImage.png",
+				width : 220,
+				height : 208,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+
+			}
+
+			var quitBox = {
+				xMin : 20,
+				yMin : 20,
+				xMax : 220,
+				yMax : 110,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.menuScreen();
+				}
+			}
+
+			var skipImage = new Image();
+			skipImage = {
+				src : "./assets/gameAssets/skipImage.png",
+				width : 220,
+				height : 208,
+				xPos : 740,
+				yPos : 0,
+				index: 0
+			}
+
+			var plusOperator = new Image();
+			plusOperator = {
+				src : "./assets/gameAssets/plusOperator.png",
+				width : 80,
+				height : 80,
+				xPos : 260,
+				yPos : 449,
+				index : 0
+			}
+
+			load.entities.push(background, gameBorderImage, scoreImage, cardsImage, quitImage, skipImage, plusOperator);
+			load.clickable.push(quitBox);
+			load.draggable.push(plusOperator);
+
+			return load.entities;
+
+		},
+		settingScreen : function() {
+			load.entities = [];
+			load.clickable = [];
+
+			var background = new Image();
+			background = {
+				src : "./assets/menuAssets/background.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var border = new Image();
+			border = {
+				src : "./assets/settingsAssets/border.png",
+				width : 960,
+				height : 540,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+			}
+
+			var quitImage = new Image();
+			quitImage = {
+				src : "./assets/gameAssets/quitImage.png",
+				width : 220,
+				height : 208,
+				xPos : 0,
+				yPos : 0,
+				index: 0
+
+			}
+
+			var quitBox = {
+				xMin : 20,
+				yMin : 20,
+				xMax : 220,
+				yMax : 110,
+				clicked : function() {
+					gameArea.entities = [];
+					gameArea.entities = load.menuScreen();
+				}
+			}
+
+			var settingsTitle = new Image();
+			settingsTitle = {
+				src : "./assets/settingsAssets/settingsLabel.png",
+				width : 392,
+				height : 110,
+				xPos : 284,
+				yPos : 48,
+				index : 0
+			}
+
+			var difficultyWindow = new Image();
+			difficultyWindow = {
+				src : "./assets/settingsAssets/difficultyWindow.png",
+				width : 365,
+				height : 180,
+				xPos : 84,
+				yPos : 225,
+				index : 0
+			}
+
+			var difficultyOptions = new Image();
+			difficultyOptions = {
+				src : "./assets/settingsAssets/difficultyOptions.png",
+				width : 280,
+				height : 68,
+				xPos : 130,
+				yPos : 325,
+				index: 0,
+				frames: 2
+			}
+
+			var easyBox = {
+				xMin : 116,
+				yMin : 326,
+				xMax : 246,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+			var hardBox = {
+				xMin : 284,
+				yMin : 326,
+				xMax : 410,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+
+			var audioWindow = new Image();
+			audioWindow = {
+				src : "./assets/settingsAssets/audioWindow.png",
+				width : 365,
+				height : 180,
+				xPos : 515,
+				yPos : 225,
+				index : 0
+			}
+
+			var audioOptions = new Image();
+			audioOptions = {
+				src : "./assets/settingsAssets/audioOptions.png",
+				width : 280,
+				height : 68,
+				xPos : 563,
+				yPos : 325,
+				index: 0,
+				frames: 2
+			}
+
+			var onBox = {
+				xMin : 576,
+				yMin : 326,
+				xMax : 676,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+			var offBox = {
+				xMin : 713,
+				yMin : 326,
+				xMax : 813,
+				yMax : 390,
+				clicked : function() {
+					if (gameArea.entities[4].index < gameArea.entities[4].frames - 1) {
+						gameArea.entities[4].index += 1;
+						//code needs to be here one day
+					} else {
+						gameArea.entities[4].index = 0;
+					}
+				}
+			}
+
+
+			load.entities.push(background, border, quitImage, settingsTitle, difficultyWindow, difficultyOptions, audioWindow, audioOptions);
+			load.clickable.push(quitBox);
+
+			return load.entities;
+
+		},
+		leaderScreen : function() {
+			load.entities = [];
+			load.clickable = [];
+
+			return load.entities;
+
+		},
+		guideScreen : function() {
+			load.entities = [];
+			load.clickable = [];
+
+			return load.entities;
+		}
+	}
+
+	function update(dt) {
+		gameArea.gameTime += dt;
+
+		switch(gameArea.state) {
+			case 1: //time attack logic
+				if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length == 1) {
+					gameArea.refTime = gameArea.gameTime;
+					gameArea.entities = load.gameScreen();
+				} else if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length > 1) {
+					gameArea.entities.pop();
+					gameArea.refTime = gameArea.gameTime;
+				} else {//post-loading game logic
+
+				}
+				break;
+			case 2: //endless logic
+				if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length == 1) {
+					gameArea.refTime = gameArea.gameTime;
+					gameArea.entities = load.gameScreen();
+				} else if (gameArea.gameTime - gameArea.refTime > 1 && gameArea.entities.length > 1) {
+					gameArea.entities.pop();
+					gameArea.refTime = gameArea.gameTime;
+				} else {//post-loading game logic
+
+				}
+				break;
+			default: //main screen null logic
+
+		}
+
+		handleInput(dt);
+		//updateEntities(dt);
+	}
+
+	function clickCollision(event) {
+		var xCoord = event.clientX;
+		var yCoord = event.clientY;
+
+		for (var i = 0; i < load.clickable.length; i++) {
+			if (load.clickable[i].xMin * gameArea.ratioX <= xCoord && load.clickable[i].xMax * gameArea.ratioX >= xCoord && load.clickable[i].yMin * gameArea.ratioY <= yCoord && load.clickable[i].yMax * gameArea.ratioY >= yCoord) {
+				load.clickable[i].clicked();
+			}
+		}
+	}
+
+	function dragCollision(event) {
+		var xCoord = event.clientX;
+		var yCoord = event.clientY;
+
+		for (var i = 0; i < load.draggable.length; i++) {
+			if (load.draggable[i].xMin * gameArea.ratioX <= xCoord && load.draggable[i].xMax * gameArea.ratioX >= xCoord && load.draggable[i].yMin * gameArea.ratioY <= yCoord && load.draggable[i].yMax * gameArea.ratioY >= yCoord) {
+				alert("Clicked a draggable");
+				load.draggable[i].isClicked = true;
+				gameArea.entities.push(load.draggable[i]);
+			}
+		}
+	}
+
+	function handleInput(dt) {
+		for (var i = 0; i < load.draggable.length; i++) {
+			if (load.draggable[i].isClicked) {
+				load.draggable[i].xPos = event.clientX;
+				load.draggable[i].yPos = event.clientY;
+			}
+		}
+	}
+
+	gameArea.init();
+	</script>
+</body>
+</html>

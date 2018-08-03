@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <script> 
+    function scoreRequest(hard){
+        var scoreInfo = [];
+        $.ajax({
+                async: false,
+                type: "GET",
+                url: "scoreRequest.php",
+                dataType: "json",
+                data: { hard: hard},
+                success: function(data) {
+                    scoreInfo[0] = data.name1 + " " + data.score1;
+                    scoreInfo[1] = data.name2 + " " + data.score2;
+                    scoreInfo[2] = data.name3 + " " + data.score3;
+                    scoreInfo[3] = data.name4 + " " + data.score4;
+                    scoreInfo[4] = data.name5 + " " + data.score5;
+                }
+            });
+        return scoreInfo;
+    }
+    function displayScoreInfo(hard) {
+        var scoreInfo = scoreRequest(hard);
+        alert(scoreInfo[0]);
+    }
+    </script>
+</head>
+<body>
+    <div id="hue" onclick='displayScoreInfo(0)'>
+        <p>Click Me</p>
+    </div>
+</body>
+</html>

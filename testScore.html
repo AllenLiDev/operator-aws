@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script>
+
+    /*
+    pushTimeAttackScore(String name, double scores, int hard) {
+    @param name 3 letter initials
+    @param scores time in milliseconds
+    @param hard 1 = hard, 0 = easy
+    }
+    */
+    function pushTimeAttackScore(name, scores, hard) {
+        var date = new Date().getTime();
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: "timeAttackScore.php",
+            data: {date: date, name: name, scores: scores, hard: hard},
+        });
+    }
+
+    function pushMarathonScore(name, scores, hard) {
+        var date = new Date().getTime();
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: "marathonScore.php",
+            data: {date: date, name: name, scores: scores, hard: hard},
+        });
+    }
+    
+    function testTimeAttack() {
+        var name = 'BOB';
+        var score = 123.0;
+        var hard = 0;
+        pushTimeAttackScore(name, score, hard);
+        alert("Hue");
+    }
+    
+    function testMarathon() {
+        var name = 'ABC';
+        //var score = 123;
+        var score = window.prompt("enter score");
+        var hard = 0;
+        pushMarathonScore(name, score, hard);
+        alert("blah");
+    }
+</script>
+</head>
+<body>
+    <div onclick="testTimeAttack()">
+        click me
+    </div>
+    <div onclick="testMarathon()">
+        click me
+    </div>
+
+</body>
+</html>

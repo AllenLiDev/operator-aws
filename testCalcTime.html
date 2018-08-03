@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./calcTime.js"></script>
+    <script>
+        function test() {
+            var test = "";
+            for (var i = 1; i < 25; i++) {
+                test += i + ":" + calcTime(i) + "\n";
+            }
+            alert(test);
+        }
+    </script>
+</head>
+<body>
+    <div onclick="test()">
+        Click me
+    </div>
+</body>
+</html>

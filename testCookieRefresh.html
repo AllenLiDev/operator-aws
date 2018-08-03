@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./cookies.js"></script>
+    <script>
+        var text = window.prompt();
+        setCookie("bob", text, 30);
+        function refreshCookie(name) {
+            if (getCookie(name) != null) {
+            setCookie(name, getCookie(name), 30);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div onclick="refreshCookie('bob')">
+        Click Me
+    </div>
+</body>
+</html>

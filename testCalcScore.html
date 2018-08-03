@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./calculateScore.js"></script>
+    <script>
+        function test() {
+            var test = "";
+            for (var i = 0; i < 21; i++) {
+                test += i + ":" + calcScore(1, i, 1) + "\n";
+            }
+            alert(test);
+        }
+    </script>
+</head>
+
+<body>
+    <div onclick="test()">
+        Click Me
+    </div>
+</body>
+</html>

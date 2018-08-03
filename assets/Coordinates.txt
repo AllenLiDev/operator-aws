@@ -1,0 +1,126 @@
+-----------
+Menu
+-----------
+
+Time attack:: x-20 y-270 h-120 -455
+Endless:: x-485 y-270 h-120 w-455
+Settings:: x-20 y-400 h-120 w-300
+Guide:: x-331 y-400 h-120 w-300
+Leaderboards:: x-640 y-400 h-120 w-300
+Volume:: x-854 y-35 h-60 w-65
+Hard Stamp:: x-612 y-94 h-140 w-290
+
+-----------
+Settings
+-----------
+
+Exit:: x-20 y-20 h-90 w-200
+Settings Text:: x-284 y-48 h-110 w-392
+Difficulty:: x-84 y-225 h-180 w-365
+Audio:: x-515 y-225 h-180 w-365
+
+difficultySwitch:: x-130 y-325 h-136 w-280
+audioSwitch:: x-563 y-325 h-136 w-280
+
+HITBOXES--
+Easy:: x-116 y-326 h-64 w-126
+Hard:: x-284 y-326 h-64 w-126
+On:: x-576 y-326 h-64 w-100
+On:: x-713 y-326 h-64 w-100
+
+-----------
+Leaderboard text
+-----------
+
+ALL HEIGHTS ARE 22
+
+TimeAtt-Easy:: x-105
+TimeAtt-Hard:: x-285
+Marathon-Easy:: x-555
+Marathon-Hard:: x-735
+1:: y-241
+2:: y-292
+3:: y-344
+4:: y-396
+5:: y-448
+
+-----------
+Pre-Game
+-----------
+
+Countdown Location:: x-395 y-151 w-170 h-231
+
+-----------
+Game Screen
+-----------
+
+Exit:: x-20 y-20 h-90 w-200
+ScoreBoard::x-260 y-20 h-178 w-439
+Progress:: x-491 y-30 h-32 w-198
+Skip:: x-740 y-20 h-90 w-200
+Cards:: x-20 y-208 h-220 w-920
+1stSlot:: x-200 y-283 h-70 w-80
+2ndSlot:: x-440 y-283 h-70 w-80
+3rdSlot:: x-680 y-283 h-70 w-80
+plusOperator:: x-260 y-449 h-80 w-80
+minusOperator:: x-380 y-449 h-80 w-80
+multiOperator:: x-500 y-449 h-80 w-80
+divOperator:: x-620 y-449 h-80 w-80
+
+-- SLIDERS --
+index size h-111 w-419
+location x-270 y-77
+
+-----------
+Marathon
+-----------
+submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510
+replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110
+
+TEXT::
+your score:: x-527 y-183 h-34
+your time:: x-527 y-241 h-34
+completed:: x-527 y-299 h-34
+
+-----------
+Time Attack Score
+-----------
+
+submit:: x-330 y-443 h-67 w-300 xMax-630 yMax-510
+replay:: x-740 y-20 h-90 w-200 xMax-940 yMax-110
+
+scrollsprite :: w-57 h-2052 individual letters(w-57 h-57)
+nameBox:: w-420 h-118 y-316 x-270
+1stLetterArea::w-140 h-118 y-316 x-270 yMax-434 xMax-410
+2ndLetterArea::w-140 h-118 y-316 x-410 yMax-434 xMax-550
+3rdLetterArea::w-140 h-118 y-316 x-550 yMax-434 xMax-690
+1stAlphabet:: x-311 y-346
+2ndAlphabet:: x-451 y-346
+3rdAlphabet:: x-591 y-346
+
+TEXT::
+your score:: x-527 y-183 h-34
+your time:: x-527 y-241 h-34
+completed:: x-527 y-299 h-34
+
+ACHIEVEMENTS::
+60 x-307 y-210
+120 x-446 y-210
+180 x-586 y-210
+ribbon sprites h-90 w-67
+-----------
+Font/Text
+-----------
+
+Card Numbers:: style: Calibri bold, size: 200pt
+1st: x-49 y-208 h-164 w-141
+2nd: x-289 y-208 h-164 w-141
+3rd: x-530 y-208 h-164 w-141
+4th: x-770 y-208 h-164 w-141
+
+Score:: style: digital7, size: 36pt
+x-424 y-29 h-26 w-91
+
+Timer:: style: digital7, size: 120pt
+x-328 y-70 h-80 w-304
+

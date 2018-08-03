@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function test() {
+            var difficulty = window.prompt("difficulty");
+            var timeTaken = window.prompt("timeTaken");
+            var comboMultiplier = window.prompt("comboMultiplier");
+            alert(calcScore(difficulty, timeTaken, comboMultiplier));
+        }
+    
+        function calcScore(difficulty, timeTaken, comboMultiplier) {
+            var score = 100;
+            var estimatedTime = 15 * difficulty;
+            var minimumTime = 2.5 * (difficulty - 1) + 5;
+            var adjustedTime = Math.max(timeTaken, minimumTime);
+            adjustedTime = estimatedTime - adjustedTime;
+            timeScore = Math.max(adjustedTime, 0);
+            var timeMultiplier = 5;
+            timeScore *= timeMultiplier;
+            score += timeScore;
+            var difficultyMultiplier = 1 + (difficulty - 1) * 0.1;
+            score *= difficultyMultiplier;
+            score *= comboMultiplier;
+            score = Math.floor(score);
+            return score;
+        }
+    </script>
+</head>
+<body>
+    <div onclick="test()">
+        Click Me
+    </div>
+</body>
+</html>

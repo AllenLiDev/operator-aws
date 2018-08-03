@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <script>
+        /*
+        getScores(int limit).
+        retrieves top x scores for time attack
+        @limit the number of scores to retrieve
+        @return array with names and scores.
+        TIME ATTACK IS SORTED BY TIME IN ASCENDING ORDER
+        MARATHON IS SORTED BY SCORE IN DESCENDING ORDER
+        INDEX NUMBER
+        0: Time Attack Easy Names
+        1: Time Attack Easy Scores
+        2: Time Attack Hard Names
+        3: Time Attack Hard Scores
+        4: Marathon Easy Names
+        5: Marathon Easy Scores
+        6: Marathon Hard Names
+        7: Marathon Hard Scores
+        */
+        function getScores(limit) {
+            var namesTimeEasy;
+            var namesTimeHard;
+            var scoresTimeEasy;
+            var scoresTimeHard;
+            var namesMarathonEasy;
+            var namesMarathonHard;
+            var scoresMarathonEasy;
+            var scoresMarathonHard;
+            $.ajax({
+                async: false,
+                type: "GET",
+                url: "getScores.php",
+                dataType: "json",
+                data: {limit: limit},
+                success: function(data) {
+                    namesTimeEasy = data.namesTimeEasy;
+                    scoresTimeEasy = data.scoresTimeEasy;
+                    namesTimeHard = data.namesTimeHard;
+                    scoresTimeHard = data.scoresTimeHard;
+                    namesMarathonEasy = data.namesMarathonEasy;
+                    scoresMarathonEasy = data.scoresMarathonEasy;
+                    namesMarathonHard = data.namesMarathonHard;
+                    scoresMarathonHard = data.scoresMarathonHard;
+                }
+            });
+            return [namesTimeEasy, scoresTimeEasy, namesTimeHard, scoresTimeHard,
+                namesMarathonEasy, scoresMarathonEasy, namesMarathonHard, scoresMarathonHard];
+        }
+        
+        function test() {
+            var test = getScores(10);
+            alert(test[0] + "" + test[1] + "\n" + test[2] + "" + test[3] + "\n" +
+                test[4] + "" + test[5] + "\n" + test[6] + "" + test[7]);
+        }
+    </script>
+</head>
+<body>
+    <div onclick="test()">
+        click me
+    </div>
+</body>
+</html>

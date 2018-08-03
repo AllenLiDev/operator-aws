@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="cookies.js"></script>
+    <script src="achievements.js"></script>
+    <script>
+        function testFastestTimeEasy() {
+            var seconds = window.prompt("enter time");
+            setFastestTimeEasy(seconds);
+            alert("Walker: " + checkTime1Easy()
+                    + "\nJogger: " + checkTime2Easy()
+                    + "\nSprinter: " + checkTime3Easy()
+                    + "\nSpeedaholic: " + checkTime1Hard()
+                    + "\nSpeed Freak: " + checkTime2Hard()
+                    + "\nSpeed Demon: " + checkTime3Hard());
+        }
+        
+        function testFastestTimeHard() {
+            var seconds = window.prompt("enter time");
+            setFastestTimeHard(seconds);
+            alert("Walker: " + checkTime1Easy()
+                    + "\nJogger: " + checkTime2Easy()
+                    + "\nSprinter: " + checkTime3Easy()
+                    + "\nSpeedaholic: " + checkTime1Hard()
+                    + "\nSpeed Freak: " + checkTime2Hard()
+                    + "\nSpeed Demon: " + checkTime3Hard());
+        }
+        
+        function testMaxCombo() {
+            var maxCombo = window.prompt("enter combo");
+            setMaxCombo(maxCombo);
+            alert("Combo Novice: " + checkCombo1()
+                    + "\nCombo Adept: " + checkCombo2()
+                    + "\nCombo Expert: " + checkCombo3()
+                    + "\nCombo Master: " + checkCombo4());
+        }
+        
+        function testHighScoreEasy() {
+            var score = window.prompt("enter score");
+            setHighScoreEasy(score);
+            alert("Mile High Club: " + checkMileHighClub()
+                    + "\nMillionaire: " + checkMillionaire());
+        }
+        
+        function testHighScoreHard() {
+            var score = window.prompt("enter score");
+            setHighScoreHard(score);
+            alert("Mile High Club: " + checkMileHighClub()
+                    + "\nMillionaire: " + checkMillionaire());
+        }
+    </script>
+</head>
+<body>
+    <div onclick="testFastestTimeEasy()">
+        FASTEST TIME EASY
+    </div>
+    <div onclick="testFastestTimeHard()">
+        FASTEST TIME HARD
+    </div>
+    <div onclick="testHighScoreEasy()">
+        HIGHSCORE EASY
+    </div>
+    <div onclick="testHighScoreHard()">
+        HIGHSCORE HARD
+    </div>
+    <div onclick="testMaxCombo()">
+        MAX COMBO
+    </div>
+</body>
+</html>

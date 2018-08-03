@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./cookies.js"></script>
+    <script>
+        window.onload = function() {
+            setCookie("name", "false", 1);
+            var cookie = getCookie("name");
+            if (cookie === "true") {
+                alert(getCookie("name"));
+            } else {
+                document.getElementById("id").innerHTML = getCookie("name");
+            }
+        };
+    </script>
+</head>
+<body>
+    <div>
+        <p id="id">ignore</p>
+    </div>
+</body>
+</html>
