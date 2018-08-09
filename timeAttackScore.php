@@ -12,7 +12,7 @@ if ($hard) {
     $upperCard = 9;
 }
 
-$servername = "localhost";
+$servername = "operator-game.c98lcf4irdez.us-west-2.rds.amazonaws.com";
 $username = "headhuntar";
 $password = "Group21rocks"; 
 $db = "headhunt_operator";

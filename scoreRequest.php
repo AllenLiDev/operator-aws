@@ -32,5 +32,5 @@ for ($iterator = 0; $iterator <= 4; $iterator++){
 echo json_encode( array("name1"=>$names[0], "score1" =>$scores[0], "name2"=>$names[1], "score2" =>$scores[1],
 "name3"=>$names[2], "score3" =>$scores[2], "name4"=>$names[3], "score4" =>$scores[3]
 ,"name5"=>$names[4], "score5" =>$scores[4]));
-}
+
 ?>
