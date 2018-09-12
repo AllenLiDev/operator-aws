@@ -9,10 +9,10 @@ if ($hard) {
     $upperCard = 9;
 }
 
-$servername = "operator-game.c98lcf4irdez.us-west-2.rds.amazonaws.com";
+$servername = "operator-game.cl1klhlysvku.us-west-2.rds.amazonaws.com";
 $username = "headhuntar";
-$password = "Group21rocks"; 
-$db = "headhunt_operator"; 
+$password = "operator"; 
+$db = "operator"; 
 $conn = new mysqli($servername, $username, $password, $db);
 if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);

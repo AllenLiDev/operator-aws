@@ -4,10 +4,10 @@ session_start();
 // retrieve data from ajax request
 $limit = $_GET['limit'];
 
-$servername = "operator-game.c98lcf4irdez.us-west-2.rds.amazonaws.com";
+$servername = "operator-game.cl1klhlysvku.us-west-2.rds.amazonaws.com";
 $username = "headhuntar";
-$password = "Group21rocks"; 
-$db = "headhunt_operator";
+$password = "operator"; 
+$db = "operator";
 
 // connects to database
 $conn = new mysqli($servername, $username, $password, $db);
@@ -16,10 +16,10 @@ if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);
 }
 
-$time9sql = "SELECT * FROM `TimeAttackScores1-9` ORDER BY `score` ASC, `dateKey` ASC LIMIT " . $limit;
-$time13sql = "SELECT * FROM `TimeAttackScores1-13` ORDER BY `score` ASC, `dateKey` ASC LIMIT " . $limit;
-$marathon9sql = "SELECT * FROM `MarathonScores1-9` ORDER BY `score` DESC, `dateKey` ASC LIMIT " . $limit;
-$marathon13sql = "SELECT * FROM `MarathonScores1-13` ORDER BY `score` DESC, `dateKey` ASC LIMIT " . $limit;
+$time9sql = "SELECT * FROM `TimeAttackScores1-9` ORDER BY `score` ASC LIMIT " . $limit;
+$time13sql = "SELECT * FROM `TimeAttackScores1-13` ORDER BY `score` ASC LIMIT " . $limit;
+$marathon9sql = "SELECT * FROM `MarathonScores1-9` ORDER BY `score` DESC LIMIT " . $limit;
+$marathon13sql = "SELECT * FROM `MarathonScores1-13` ORDER BY `score` DESC LIMIT " . $limit;
 
 $namesTimeEasy = array();
 $scoresTimeEasy = array();

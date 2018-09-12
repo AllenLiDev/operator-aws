@@ -5,17 +5,16 @@ session_start();
 $hard = $_GET['hard'];
 $name = $_GET['name'];
 $scores = $_GET['scores'];
-$date = $_GET['date'];
 if ($hard) {
     $upperCard = 13;
 } else {
     $upperCard = 9;
 }
 
-$servername = "operator-game.c98lcf4irdez.us-west-2.rds.amazonaws.com";
+$servername = "operator-game.cl1klhlysvku.us-west-2.rds.amazonaws.com";
 $username = "headhuntar";
-$password = "Group21rocks"; 
-$db = "headhunt_operator";
+$password = "operator"; 
+$db = "operator";
 
 // connects to database
 $conn = new mysqli($servername, $username, $password, $db);
@@ -25,7 +24,7 @@ if ($conn->connect_error) {
 }
 
 // selects table based on $upperCard
-$sql = "INSERT INTO `TimeAttackScores1-" . $upperCard . "` (`name`, `score`, `dateKey`) VALUES ('$name', $scores, $date)";
+$sql = "INSERT INTO `TimeAttackScores1-" . $upperCard . "` (`name`, `score`) VALUES ('$name', $scores)";
 // inserts score data into timeattackTable
 $conn->query($sql);
 $conn->close();
