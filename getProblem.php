@@ -22,7 +22,7 @@ if ($conn->connect_error) {
     die("connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM $table ORDER BY RAND() LIMIT 1";
+$sql = "SELECT * FROM $table WHERE difficulty = $difficulty ORDER BY RAND() LIMIT 1";
 $problem = $conn->query($sql);
 $row = $problem->fetch_assoc();
 
